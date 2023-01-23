@@ -1,9 +1,18 @@
 ---
 title: "Post With Code"
-author: "Harlow Malloc"
+author: "Patrick"
 date: "2023-01-22"
 categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
 This is a post with executable code.
+
+
+
+```{r}
+1 + 1 
+```
+
+
+
