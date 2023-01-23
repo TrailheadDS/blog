@@ -1,7 +1,7 @@
 ---
 title: "Post With Code"
 author: "Patrick"
-date: "2023-01-22"
+date: "2023-01-22"   
 categories: [news, code, analysis]
 image: "image.jpg"
 ---
@@ -9,10 +9,22 @@ image: "image.jpg"
 This is a post with executable code.
 
 
-
+The basic `function` that you know and love
 ```{r}
 1 + 1 
 ```
 
 
+The hello world of this blog 
+
+```{r}
+library(tidyverse)
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  setView(lng=-82.5437, lat= 27.7634, zoom = 10) %>%
+  addMarkers(lng=-82.5437, lat= 27.7634, popup="Born and Raised")
+
+
+```
 
