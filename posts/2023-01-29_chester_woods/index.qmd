@@ -1,0 +1,38 @@
+---
+title: "Chester Woods"
+author: "Patrick"
+date: "2023-01-29"   
+categories: [Hiking, Code]
+image: "image.jpg"
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(leaflet)
+library(plotKML)
+```
+
+
+To start the New Year off right, I went hiking at Chester Woods. The weather was amazing with a good accumulation of snow on the ground. It blanketed the park and gave it this serene look and feel that you cannot get in any other season. There were several people at the park but it was not crowded at all, you found yourself on large swaths of the trail accompanied only by the subtle crunching of snow beneath your feet. Most of the trail was groomed for nordic skiing but there were some areas where snowshoes can really come in handy. 
+
+<img src="image.jpg" alt="serene view" height=500 width=800>
+
+To start the ritual which I hope to do every time I go hiking I brought a phone and charger to record data. I captured my walk using the [Strava](https://www.strava.com/dashboard) app. I had some technical difficulties so the beginning of the hike was not recorded. However there was not much lost data. I ended up walking about 3h 51m and went 7.84 mi.The snow was thick so I rented a pair of snowshoes for the day. 
+
+
+
+Here is a `leaflet` map with my trail, I marked the start of when I collected data, notice it was already in the park.
+
+```{r, echo = FALSE}
+
+gpx_data <- readGPX("../../gpx_data/Chester_woods.gpx")
+gpx_df <- gpx_data[["tracks"]][[1]][["Chester woods"]]
+
+leaflet() %>%
+ addPolylines(lng = gpx_df$lon, lat =gpx_df$lat, color = "#20c997") %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addMarkers(lng = gpx_df$lon[1], lat =gpx_df$lat[1])
+```
+
+
+My hope is to have at least one hiking trip per month. Small walks in town do not count.

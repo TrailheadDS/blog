@@ -1,12 +1,30 @@
 ---
 title: "Welcome To Trailhead Data Science"
 author: "Patrick"
-date: "2023-01-19"
-categories: [news]
+date: "2023-01-29"
+categories: [News]
+image: "thumbnail.jpg"
 ---
 
-This is the first post in a Quarto blog. Welcome!
+This is the first post in my Quarto blog. **Welcome!**
 
-![](thumbnail.jpg)
 
-Since this post doesn't specify an explicit `image`, the first image in the post will be used in the listing page of posts.
+<img src="thumbnail.jpg" alt="colorado" height=750 width=850>
+
+*Trailhead Data Science* is the brainchild of my attempt at New Year's Resolutions for 2023. In late 2022 I felt like I was in a bit of a slump from the COVID-19 pandemic and needed to develop some new habits. So here is the idea, hear me out. How about trying to connect a few of my passions together and create something cool?  I love doing creative coding projects, I want to write more, and I want to go on more hiking trips. So what about a blog? [Quarto](https://quarto.org/) recently came out with their new publishing system including the ability to make blogs. I love coding in `R` and was planning on building a blog in `blogdown`... eventually. Luckily, I never started so I did not have to relearn anything.
+
+I learned everything I needed to make a quarto blog from this [page](https://quarto.org/docs/websites/website-blog.html) and the process was pretty much seamless, only took me about a day to get everything ready. I am currently publishing through github pages, so we will see how that goes. 
+
+What should you expect from this blog? 
+
+I have a lot of interests but I didn't want this to be a generic "Patrick" blog so I have decided to hone in on a few topics:
+
+1. All things `quarto` and `R` related to this blog and blogging in general
+2. My hiking trips and love of nature and outdoors
+3. GIS and Spatial Statistics
+
+In this way you can get some variety but within reason, if you were looking for Star Wars fan fiction, or musings on the philosophy of pragmatism you wil need to go elsewhere. I am hoping to be pretty formulaic when it comes to describing my hiking trips interspersed with some posts about other topics.
+
+For my hiking trips I have some plans to plot some data, so stay tuned for that. 
+
+Hope you enjoy!
