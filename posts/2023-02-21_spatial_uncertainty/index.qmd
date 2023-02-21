@@ -1,0 +1,29 @@
+---
+title: "Spatial Uncertainty"
+author: "Patrick"
+date: "2023-02-21"   
+categories: [Hiking, Code]
+image: "image.jpg"
+draft: true
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(leaflet)
+library(plotKML)
+```
+
+
+
+I want to a series of Spatial Uncertainty.  I want to make it short and sweet and I want to cover multiple posts 
+
+Here is the order of what I want to do
+
+Gelman BDA3 example (Also thinking fast and slow)
+Smoothing maps
+Mean and Standard Deviation maps
+[Spatial Relative Risk](https://www.jstatsoft.org/article/view/v039i01)
+Exceedance probabilities Probability plots (RR > 1)
+Qualitative Plots COVID Maps
+
+https://www.paulamoraga.com/book-geospatial/sec-geostatisticaldataexamplespatial.html

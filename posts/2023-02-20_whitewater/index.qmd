@@ -1,0 +1,48 @@
+---
+title: "Whitewater"
+author: "Patrick"
+date: "2023-01-29"   
+categories: [Hiking, Code]
+image: "view.jpg"
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(leaflet)
+library(plotKML)
+```
+
+
+
+I began my journey early in the morning. Well not super early, I am not a morning person. I am a big fan of Whitewater, I have been there several times. It is close enough to be an easy trip while far enough to get at the more bluffy and hill parts of Minnesota. I live in the south east, south central of the state and it is mostly flat, reminiscent of Iowa. 
+
+The trip this time however was pretty stressful. At the end of it all I was pretty happy with the distance I covered, so much satisfaction but during the hike it was pretty miserable. You see the snow just turned to ice. The weather was good but the terrain consisted of two categories:
+
+1. Rivers of ice from hell
+2. Not too deep snow that was frozen solid; You couldn't even leave a footprint in the morning
+
+I did not suspect this at all and boy did I have at it. I fell a total of six times. Often I had to go off trail because the steep inclines and descents were just ice rivers.  So I was very slow but to be honest it was enjoyable and I didn't hurt myself; no harm, no foul.
+
+Whitewater is beautiful. It has nice periods of evaluation and descent which lends itself to beautiful views. There are not a lot of hiking opportunities but you can find yourself there for an entire day.
+
+<img src="view.jpg" alt="serene view" height=500 width=800>
+
+No technical difficulties but I did run into another issue.  I had to double back for quite a bit of time because I dropped my USB cord while taking a picture on the river. It was the cord that connected my phone to my external battery. I ended up finding it so that made my day and I ended up climbing a fairly steep area twice, so a good workout.
+
+<img src="river.jpg" alt="river view" height=500 width=800>
+
+
+Overall, it was a good hike with some a couple of snags. I would have definitely not have gone in those conditions though if I knew; it just needed to be a little warmer for the ice to melt or a little colder with the ice still being snow.
+
+Here is a `leaflet` map with my trail. You might notice the the areas with lots of overlapping lines. That was the extra climb for the dropped USB cord
+
+```{r, echo = FALSE}
+
+gpx_data <- readGPX("../../gpx_data/Whitewater.gpx")
+gpx_df <- gpx_data[["tracks"]][[1]][["Whitewater"]]
+
+leaflet() %>%
+ addPolylines(lng = gpx_df$lon, lat =gpx_df$lat, color = "#20c997") %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addMarkers(lng = gpx_df$lon[1], lat =gpx_df$lat[1])
+```

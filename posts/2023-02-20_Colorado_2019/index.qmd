@@ -1,0 +1,31 @@
+---
+title: "Colorado Trip 2019"
+author: "Patrick"
+date: "2023-01-29"   
+categories: [Hiking, Code]
+image: "image.jpg"
+draft: true
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(leaflet)
+library(plotKML)
+```
+
+
+Here is a `leaflet` map with my trail, I marked the start of when I collected data, notice it was already in the park.
+
+```{r, echo = FALSE}
+
+gpx_data <- readGPX("../../gpx_data/Chester_woods.gpx")
+gpx_df <- gpx_data[["tracks"]][[1]][["Chester woods"]]
+
+leaflet() %>%
+ addPolylines(lng = gpx_df$lon, lat =gpx_df$lat, color = "#20c997") %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addMarkers(lng = gpx_df$lon[1], lat =gpx_df$lat[1])
+```
+
+
+My hope is to have at least one hiking trip per month. Small walks in town do not count.
