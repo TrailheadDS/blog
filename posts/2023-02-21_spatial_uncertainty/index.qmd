@@ -1,29 +1,75 @@
 ---
-title: "Spatial Uncertainty"
+title: "New Series on Spatial Uncertainty"
 author: "Patrick"
-date: "2023-02-21"   
-categories: [Hiking, Code]
-image: "image.jpg"
-draft: true
+date: "2023-02-22"   
+categories: [News]
+image: "urban_rural.PNG"
+draft: false
 ---
 
-```{r, include = FALSE}
-library(tidyverse)
-library(leaflet)
-library(plotKML)
-```
+I have some news. I have decided what to write for my first series on GIS. I will still write the Strava and the hiking posts but I want to add a series of posts on *drum roll* please... _Spatial Uncertainty_.
+
+Maps are great visualization tools for presentation. Every one of us has looked at a map of data and made some conclusions. I asked [ChatGPT](https://openai.com/blog/chatgpt/), the rage nowadays, why maps are good at displaying data. This is what it said: 
+
+> Maps are a powerful tool for displaying data because they allow for the visualization of spatial relationships and patterns. By presenting data on a map, it becomes possible to see geographic trends and patterns that might not be apparent when viewing the data in a table or chart.
+
+Pretty good for a **robot**, I guess? However, there is a recurring problem that I have noticed. Maps tend to display a lot of data but mostly there are describing some mean or proportion as descriptive statistics, and often they are not inferential. This can be a problem because we often make inferential conclusions when looking at these maps. We can't help it. Furthermore, the lack of any inferences means we interpret these data with **NO UNCERTAINTY!**
+
+**But fear not!** Because there are ways to display uncertainty and they are becoming more popular. I hope to give you some examples, with some code snippets and if you are interested you should try it out for yourself. There is an art and science to good map making and I suspect a creative mind will be able to distill some important statistical concepts and build something that not only looks good but is informative and allows people to make the right decisions. I did *not* develop anything novel here and am standing on the shoulders of giants,so I will also use this as an opportunity to link the books, articles and blogs where I found these cool things. 
+
+I will leave you dear reader with an interesting story I have heard from multiple sources that highlight a deep problem with maps. As an aside I often don't recommend county maps at the level of the United States after I have seen this phenomenon. They can be useful but there are a lot of issues. This story is fairly popular, I have heard in a couple of places:
+
+1. Andrew Gelman and others use this story to highlight motivation for hierarchial Bayesian modeling in _Bayesian Data Analysis_ - wonderful book highly recommend
+2. Daniel Kahneman, the Nobel Prize winning Psychologist uses this story to highlight the "law of small numbers" in his book _Thinking Fast and Slow_
+3. The story originates, I think, from two statisticians, Howard Wainer and Harris Zwerling, in their article [Evidence That Smaller Schools Do Not Improve Student Achievement](https://journals.sagepub.com/doi/10.1177/003172170608800411)
+
+Here is the story. We want to explore the spatial variation of the incidence of kidney cancer across the United States. We have this data aggregated at the county level for a particular time period. Just in an effort to reduce the dimension of the problem we have decided to plot highest rates of cancer and the lowest rates, using a cutoff of the top 10% and bottom 10% respectively.  When we do this we see an _interesting_ pattern. 
 
 
+:::: {.columns}
 
-I want to a series of Spatial Uncertainty.  I want to make it short and sweet and I want to cover multiple posts 
+::: {.column width="100%"}
+### Highest Rates
+<img src="highest_risk.PNG" alt="high risk" height=500 width=800>
+from BDA3
+:::
 
-Here is the order of what I want to do
+::: {.column width="100%"}
+### Lowest Rates
+<img src="lowest_risk.PNG" alt="low risk" height=500 width=800>
+from BDA3
+:::
 
-Gelman BDA3 example (Also thinking fast and slow)
-Smoothing maps
-Mean and Standard Deviation maps
-[Spatial Relative Risk](https://www.jstatsoft.org/article/view/v039i01)
-Exceedance probabilities Probability plots (RR > 1)
-Qualitative Plots COVID Maps
+:::: 
 
-https://www.paulamoraga.com/book-geospatial/sec-geostatisticaldataexamplespatial.html
+As you can see it looks like there is a rural pattern for both high risk and low risk. One could imagine a myriad of reasons as to why we see this in rural populations. If you are unfamilar with rural status in the United states, go to this [website](https://www.cdc.gov/nchs/data_access/urban_rural.htm), where I got the title image. Kahneman details the conversation he had with the statisticians highlighting the point:
+
+> The witty statisticians Howard Wainer and Harris Zwerling,
+from whom I learned this example, commented, “It is both easy and
+tempting to infer that their low cancer rates are directly due to the clean
+living of the rural lifestyle—no air pollution, no water pollution, access to
+fresh food without additives.” This makes perfect sense. Now consider the counties in which the incidence of kidney cancer is
+highest. These ailing counties tend to be mostly rural, sparsely populated,
+and located in traditionally Republican states in the Midwest, the South,
+and the West. Tongue-in-cheek, Wainer and Zwerling comment: “It is easy
+to infer that their high cancer rates might be directly due to the poverty of
+the rural lifestyle—no access to good medical care, a high-fat diet, and too much alcohol, too much tobacco.” Something is wrong, of course. The rural
+lifestyle cannot explain both very high and very low incidence of kidney
+cancer.
+
+Humans are pattern seeking and it is not surprising that even the most "studious" among us are able to create a story to the data, even though we are potentially chasing noise, it could very well be a statistical artifact due to small samples sizes leading to extreme rates.
+
+Gelman et al. says something to that effect:
+
+> The issue is sample size. Consider a county of population 1000. Kidney cancer is a
+rare disease, and, in any ten-year period, a county of 1000 will probably have zero kidney
+cancer deaths, so that it will be tied for the lowest rate in the country and will be shaded
+in Figure 2.7. However, there is a chance the county will have one kidney cancer death
+during the decade. If so, it will have a rate of 1 per 10,000 per year, which is high enough
+to put it in the top 10% so that it will be shaded in Figure 2.6. The Great Plains has many
+low-population counties, and so it is overrepresented in both maps. There is no evidence
+from these maps that cancer rates are particularly high there.
+
+Although this seems like a niche issue it is very common for unstable rates or values to dominate the attention of the map viewer. We don't want this because you would be potentially ignoring what the data are justified in demonstrating for noise. 
+
+So let's quantify some uncertainty and put it into our maps!!! See you soon. 
