@@ -1,0 +1,92 @@
+---
+title: "Intro to Shinylive"
+author: "Patrick"
+date: "2023-02-23"   
+categories: [Quarto, Code]
+filters:
+  - shinylive
+---
+
+I wanted to share a quick post on Shinylive. I recently discovered that Shinylive just got a Quarto extension allowing one to embed Shinylive applications directly into a Quarto doc. Super Awesome! You may be asking yourself: "What is Shinylive?" Well ShinyLive is a new way to make Shiny apps. Shiny apps are originally for the R programming language but Rstudio *ahem* sorry Posit is branching out to more languages. Quarto is another one of these branches. So anyway Posit decided to expand Shiny for the Python language hence [Shiny for Python](https://shiny.rstudio.com/py/). This was announced at the last Rstudio Conference in 2022 by [Joe Cheng](https://www.youtube.com/watch?v=HpqLXB_TnpI). It is a cool expansion do not get me wrong, but I am not an avid Python user so the appeal to me wasn't huge. I mean I know how to make shiny apps already.  However that is not what caught my attention, what caught my attention was the announcement of [Shinylive](https://shiny.rstudio.com/py/docs/shinylive.html)
+
+From the website: 
+
+>Shiny for Python has an experimental mode called Shinylive: this is where applications can run entirely in a web browser, without the need for a separate server running Python.
+
+>The traditional way of deploying Shiny involves in a separate server and client: the server runs Python and Shiny, and clients connect via the web browser. Each client keeps an open websocket connection as long as they are using the application.
+
+Shiny without a server? How can this be? Well it is using two technologies that you may or may not have heard of
+
+> This is all possible because of the magic of WebAssembly and Pyodide.
+
+> 1. [WebAssembly (wasm)](https://webassembly.org/) is a binary format for compiled programs that can run in a web browser at near-native speeds.
+> 2. [Pyodide](https://pyodide.org/) is a port of Python and many packages, compiled to WebAssembly.
+
+I could go on about this but I will leave you with my first Shinylive embed for this blog. It is actually a pretty handy one. Often when I am making a leaflet map I like to have a specific zoom as well as coordinates for centering. Leaflet does pretty well so before I wasn't bothered. Now I have a leaflet map that has a shiny slider and output which not only tells me the zoom but the lat and long of the center of the map. Pretty handy. Also to be honest this was in the gallery for Shinylive so it wasn't too much work to get things [going](https://quarto.org/docs/blog/posts/2022-10-25-shinylive-extension/).
+
+
+Enjoy :)
+
+:::{.column-screen-inset}
+
+```{shinylive-python}
+#| standalone: true
+#| viewerHeight: 1000
+
+from htmltools import css
+from shiny import App, reactive, render, ui
+from shinywidgets import output_widget, reactive_read, register_widget
+
+import ipyleaflet as L
+
+app_ui = ui.page_fluid(
+    ui.div(
+        ui.input_slider("zoom", "Map zoom level", value=12, min=1, max=18),
+        ui.output_ui("map_bounds"),
+        style=css(
+            display="flex", justify_content="center", align_items="center", gap="2rem"
+        ),
+    ),
+    output_widget("map"),
+)
+
+
+def server(input, output, session):
+    # Initialize and display when the session starts (1)
+    map = L.Map(center=(42.2656, -83.5902), zoom=10, scroll_wheel_zoom=True)
+    # Add a distance scale
+    map.layout.height = '900px'
+    map.add_control(L.leaflet.ScaleControl(position="bottomleft"))
+    register_widget("map", map)
+
+    # When the slider changes, update the map's zoom attribute (2)
+    @reactive.Effect
+    def _():
+        map.zoom = input.zoom()
+
+    # When zooming directly on the map, update the slider's value (2 and 3)
+    @reactive.Effect
+    def _():
+        ui.update_slider("zoom", value=reactive_read(map, "zoom"))
+
+    # Everytime the map's bounds change, update the output message (3)
+    @output
+    @render.ui
+    def map_bounds():
+        center = reactive_read(map, "center")
+        if len(center) == 0:
+            return
+
+        lat = round(center[0], 4)
+        lon = (center[1] + 180) % 360 - 180
+        lon = round(lon, 4)
+
+        return ui.p(f"Latitude: {lat}", ui.br(), f"Longitude: {lon}")
+
+
+app = App(app_ui, server)
+
+
+```
+
+:::
