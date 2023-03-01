@@ -1,0 +1,40 @@
+---
+title: "Nerstrand"
+author: "Patrick"
+date: "2023-02-28"   
+categories: [Hiking, Code]
+image: "snowmobile_trail.jpg"
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(leaflet)
+library(plotKML)
+```
+
+
+
+There was a huge [winter storm](https://www.dnr.state.mn.us/climate/journal/winter-storm-february-21-23-2023.html) in Minnesota last week and I had to take advantage. I figured this will likely be the last snowshoeing opportunity for the season so I decided to go to Nerstrand state park. It is about an hour away from where I live in the small little town of Nerstrand. When I got there I realized I have visited this park before and in the winter.
+It was a great walk, the snow was awesome, the snow shoes were absolutely necessary. I ended up doing quite a bit more than I expected, I was out for about 6 hours and I went a total of 11.09 miles. 
+
+<img src="thepark.jpg" alt="first view of park" height=500 width=800>
+
+The park consisted of hiking trails, and snowmobile trails. Most trails were already walked but you  still got the snowshoe experience, there was only one area, really, which was completely undisturbed. It was rough not gonna lie, the sun was blazing and it was 0.9 miles. 
+
+<img src="snowmobile_trail.jpg" alt="snowmobile trail" height=600 width=400>
+
+Here is the `leaflet` map with my trail. Not a lot of overlap, I did a little double back but that was due to not seeing the trail. I was out a bit too long, especially in the plain area with no trees. Got a bit sunburned.
+
+Loved it, I am glad went out there, it was a great Sunday.
+
+```{r, echo = FALSE}
+
+gpx_data <- readGPX("../../gpx_data/Nerstrand.gpx")
+gpx_df <- gpx_data[["tracks"]][[1]][["Nerstrand"]]
+
+leaflet(height=2000, width=2000) %>%
+ addPolylines(lng = gpx_df$lon, lat =gpx_df$lat, color = "#20c997") %>%
+ setView(lng = -93.1067, lat = 44.3431, zoom = 14) %>%
+ addProviderTiles(providers$CartoDB.Positron, ) %>%
+ addMarkers(lng = gpx_df$lon[1], lat =gpx_df$lat[1])
+```
