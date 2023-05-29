@@ -1,0 +1,8 @@
+---
+title: "Welcome Back"
+author: "Patrick"
+date: "2023-05-29"   
+categories: [News]
+---
+
+Long time, no see! I have been a bit busy with my personal and work live and I haven't done much hiking or blogging.  I am moving to the great state of Michigan soon and I hope to be doing some cool hikes there. As I will be leaving Minnesota I am hoping to get in some hikes for the blog, so stay tuned for that as well as some interesting GIS things. Won't spoil the surprise.
